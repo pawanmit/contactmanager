@@ -8,4 +8,5 @@ CREATE TABLE company (
 	name VARCHAR(255) NOT NULL,
 	PRIMARY KEY (id)
 	);	
-		
+
+	CREATE UNIQUE INDEX company_name_idx ON company (name);
