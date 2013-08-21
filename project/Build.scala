@@ -12,11 +12,13 @@ object ApplicationBuild extends Build {
     javaCore,
     javaJdbc,
     javaEbean,
-    "mysql" % "mysql-connector-java" % "5.1.18"
+    javaJpa,
+    "mysql" % "mysql-connector-java" % "5.1.18",
+    "org.hibernate" % "hibernate-entitymanager" % "4.2.1.Final"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
-    // Add your own project settings here      
+    //ebeanEnabled := false      
   )
 
 }
