@@ -1,0 +1,20 @@
+Table name: rsvp
+Fields:
+id
+total
+rsvp_yes
+rsvp_no
+rsvp_maybe
+meetups_attended
+no_shows
+
+CREATE TABLE rsvp (
+	id INT NOT NULL AUTO_INCREMENT,
+	total SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+	rsvp_yes SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+	rsvp_no SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+	rsvp_maybe SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+	meetups_attended SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+	no_shows SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+	PRIMARY KEY (id)
+ );	

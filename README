@@ -1,0 +1,34 @@
+This is your new Play 2.1 application
+=====================================
+
+This file will be packaged with your application, when using `play dist`.
+Teachscape Programming & Code Review
+                 ====================================
+
+-- Meetup Contact Manager --
+Build and test a simple web-based system that takes the given CSV data (see attached) containing contact information in structured format and translates it into database records, with separate storage for Contacts and Companies.  There should be only one UNIQUE record per companyName, such that employees at Apple or Google relate back to Company records for their respective companies.
+
+The system should store the data in a database and allow for access with a browser.
+
+The system should have at least three screens
+1) File upload
+Screen for selection and uploading the CSV from a file 
+
+2) List view for Contacts
+Screen showing the data that was extracted by the upload resides inside the system. The screen should show the uploaded data in a table-like format with (optionally) sortable columns.
+
+3) List view for Companies
+Screen like 2) but showing the extracted companies and their details
+
+4) (Optional, be creative!)
+Use one of the imported fields to add a feature of your own to the application.  
+
+For example, send a reminder email if the Contact has not visited the meetup site within 90 days.
+Or give the user a way to backup their contacts with a password protected file, similar to the feature in Document management software.
+
+
+import_contacts.csv
+---
+email,first_name,last_name,prefix,phone,fax,title,company, …
+(pls see attached)
+---
