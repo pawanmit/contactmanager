@@ -6,37 +6,45 @@ import java.util.List;
 import models.com.contactmanager.Company;
 import models.com.contactmanager.Profile;
 import models.com.contactmanager.Rsvp;
+import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 import util.com.contactmanager.InputFileReader;
 import viewobject.com.contactmanager.User;
 import views.html.index;
+import views.html.upload;
 import exception.com.contactmanager.ApplicationException;
 
 public class UploadContactsController extends Controller {
 
 	public static Result index() {
 
-		// Extract csv contents as array list
-		// Create Model Objects
-		// Insert Model into database
+		// return ok(index.render("Output:" + output));
+		return ok(upload.render());
 
-		// Company comp = new Company("google");
-		// comp.save();
+	}
 
-		// List<Company> companies = Company.findAll();
-		String output = "";
-		// for (Company company : companies) {
-		// output += company.toString();
-		// }
+	public static Result uploadCsv() {
+		String error = "";
+
 		List<User> users = new ArrayList<User>();
 		try {
 			users = InputFileReader
 					.getUserList("/Users/pmittal/Desktop/contacts.csv");
 		} catch (ApplicationException e) {
-			output = e.getMessage();
+			error = e.getMessage();
 		}
 
+		if (error.length() > 0) {
+
+		} else {
+			saveUsers(users);
+		}
+
+		return ok(upload.render());
+	}
+
+	private static void saveUsers(List<User> users) {
 		List<Company> existingCompanies = Company.findAll();
 		for (User user : users) {
 
@@ -45,7 +53,8 @@ public class UploadContactsController extends Controller {
 				existingCompanies.add(company);
 				company.save();
 			} else {
-				 company = existingCompanies.get(existingCompanies.indexOf(company));
+				company = existingCompanies.get(existingCompanies
+						.indexOf(company));
 			}
 
 			Rsvp rsvp = new Rsvp();
@@ -72,18 +81,13 @@ public class UploadContactsController extends Controller {
 			profile.is_photo = user.is_photo;
 			profile.url = user.url;
 			profile.mailing_list_type = user.mailing_list_type;
-			profile.save();
-			// Rsvp rsvp = new Rsvp();
-
+			try {
+				profile.save();
+			} catch (Exception e) {
+				Logger.error(e.getMessage());
+				rsvp.delete();
+				company.delete();
+			}
 		}
-		return ok(index.render("Output:" + output));
-
-	}
-
-	private void saveProfile() {
-
-		Company comp = new Company("google");
-		comp.save();
-		// profile.
 	}
 }

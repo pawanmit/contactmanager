@@ -9,3 +9,4 @@ GET     /                           controllers.Application.index()
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET /upload 					controllers.com.contactmanager.UploadContactsController.index()
+POST /uploadcsv					controllers.com.contactmanager.UploadContactsController.uploadCsv()

@@ -61,7 +61,7 @@ public class InputFileReader {
 
 	private static User createUserFromCsv(String csvRow)
 			throws CreateUserException {
-		Logger.info(csvRow);
+		//Logger.info(csvRow);
 
 		String errorMessage = "";
 		User user = new User();
