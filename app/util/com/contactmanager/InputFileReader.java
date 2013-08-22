@@ -141,7 +141,7 @@ public class InputFileReader {
 		user.is_assistant_organizer = convertStringToBoolean(valueArray[16]);
 
 		user.mailing_list_type = valueArray[17];
-		user.url = valueArray[17];
+		user.url = valueArray[18];
 
 		if (errorMessage.length() > 0) {
 			throw new CreateUserException(errorMessage);
