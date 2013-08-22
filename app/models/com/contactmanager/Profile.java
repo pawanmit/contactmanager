@@ -4,13 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 import play.data.validation.Constraints;
+import play.db.ebean.Model;
 
 @Entity
-public class Profile {
+public class Profile extends Model {
 
 	@Id
 	public String id;
@@ -18,7 +17,7 @@ public class Profile {
 	
 	public String name;
 	@Constraints.Required
-	public String user_id;
+	public String login_name;
 	
 	public String title;
 	
@@ -27,7 +26,7 @@ public class Profile {
 	
 	//@OneToOne
 	//@JoinColumn(name="id")
-	public Rsvp rsvp;
+	//public Rsvp rsvp;
 	
 	@Constraints.Required
 	public Date joined_date;
@@ -51,4 +50,5 @@ public class Profile {
 	
 	public String url;
 
+	public String rsvp_id;
 }

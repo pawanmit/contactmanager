@@ -1,31 +1,43 @@
 package models.com.contactmanager;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import play.data.validation.Constraints;
+import play.db.ebean.Model;
 
 @Entity
-public class Rsvp {
+public class Rsvp extends Model {
 
-	@Constraints.Required
+	@Id
 	public String id;
 
 	@Constraints.Required
 	public int total;
 
 	@Constraints.Required
-	public int rsvp_yes;
+	public int yes;
 
 	@Constraints.Required
-	public int rsvp_no;
+	public int no;
 
 	@Constraints.Required
-	public int rsvp_maybe;
+	public int maybe;
 
 	@Constraints.Required
 	public int meetups_attended;
 
 	@Constraints.Required
 	public int no_shows;
+
+	@OneToOne
+	@JoinColumn(name = "id")
+	public Profile profile;
+
+	public static void save(Rsvp rsvp) {
+		rsvp.save();
+	}
 
 }

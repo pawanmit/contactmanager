@@ -21,13 +21,12 @@ public class InputFileReader {
 	public static List<User> getUserList(String filePath)
 			throws ApplicationException {
 
-		List userList = new ArrayList();
+		List<User> userList = new ArrayList<User>();
 		BufferedReader br = null;
 		try {
 			FileReader fr = new FileReader(filePath);
 			br = new BufferedReader(fr);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			Logger.error(e.getMessage());
 			throw new ApplicationException("Unable to read file from "
 					+ filePath);
@@ -37,24 +36,36 @@ public class InputFileReader {
 		try {
 			while ((row = br.readLine()) != null) {
 				if (count != 0) {
-					createUserFromCsv(row);
+					User user = null;
+					try {
+						user = createUserFromCsv(row);
+					} catch (CreateUserException cue) {
+						br.close();
+						throw new ApplicationException(cue.getMessage());
+					}
+					userList.add(user);
 				}
 				count++;
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException(e.getMessage());
 		}
-
+		try {
+			br.close();
+		} catch (IOException e) {
+			throw new ApplicationException(e.getMessage());
+		}
 		return userList;
 
 	}
 
-	private static User createUserFromCsv(String csvRow) {
+	private static User createUserFromCsv(String csvRow)
+			throws CreateUserException {
 		Logger.info(csvRow);
-		System.out.println(csvRow);
+
 		String errorMessage = "";
 		User user = new User();
+
 		String[] valueArray = csvRow.split(",");
 
 		user.name = valueArray[0];
@@ -131,6 +142,10 @@ public class InputFileReader {
 
 		user.mailing_list_type = valueArray[17];
 		user.url = valueArray[17];
+
+		if (errorMessage.length() > 0) {
+			throw new CreateUserException(errorMessage);
+		}
 		return user;
 	}
 
@@ -138,8 +153,10 @@ public class InputFileReader {
 			throws CreateUserException {
 		Date date = null;
 		try {
-			date = new SimpleDateFormat("mm/dd/yyyy", Locale.ENGLISH)
-					.parse(dateString);
+			if (dateString != null && dateString.length() > 0) {
+				date = new SimpleDateFormat("mm/dd/yyyy", Locale.ENGLISH)
+						.parse(dateString);
+			}
 		} catch (ParseException e) {
 			Logger.error(e.getMessage());
 			throw new CreateUserException("Error converting string to date");
@@ -152,7 +169,9 @@ public class InputFileReader {
 			throws CreateUserException {
 		int count = 0;
 		try {
-			count = Integer.parseInt(intString);
+			if (intString != null && intString.length() > 0) {
+				count = Integer.parseInt(intString);
+			}
 		} catch (Exception e) {
 			Logger.error(e.getMessage());
 			throw new CreateUserException("Error converting string to int");
