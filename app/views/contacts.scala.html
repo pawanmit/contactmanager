@@ -1,28 +1,37 @@
 @(message : String)
 
+
 <html>
 
 <body>
-<table>
+<span class="message">Click on a column header to sort the rows</span>
+<table id="contactsTable">
 <thead>
-<th>Member Id</th>
-<th>Name</th>
-<th>Login Name</th>
-<th>Title</th>
-<th>Joined Date</th>
-<th>Last Attended Date</th>
-<th>Last Visited date</th>
-<th>Intro</th>
-<th>Photo</th>
-<th>Assistant Organizer</th>
-<th>Mailing List Type</th>
-<th>Url</th>
+<th class="col_header">Member Id</th>
+<th class="col_header">Name</th>
+<th class="col_header">Login Name</th>
+<th class="col_header">Title</th>
+<th class="col_header">Joined Date</th>
+<th class="col_header">Last Attended Date</th>
+<th class="col_header">Last Visited date</th>
+<th class="col_header">Intro</th>
+<th class="col_header">Photo</th>
+<th class="col_header">Assistant Organizer</th>
+<th class="col_header">Mailing List Type</th>
+<th class="col_header">Url</th>
 </thead>
 @Html(message)
 </table>
 <footer>
 	<script type="text/javascript" src="http://www.resumescanner.net/static/scripts/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="/assets/javascripts/jquery.tablesorter.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() 
+    		{ 
+        		$("#contactsTable").tablesorter(); 
+    		} 
+		); 
+	</script>
 </footer>
 </body>
 </html>

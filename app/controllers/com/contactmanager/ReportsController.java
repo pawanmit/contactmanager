@@ -1,5 +1,6 @@
 package controllers.com.contactmanager;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +28,8 @@ public class ReportsController extends Controller {
 			output += "<td>" + formatDate(profile.last_visited_date) + "</td>";
 			output += "<td>" + (profile.is_intro ? "Yes" : "No") + "</td>";
 			output += "<td>" + (profile.is_photo ? "Yes" : "No") + "</td>";
-			output += "<td>" + (profile.is_assistant_organizer ? "Yes" : "No") + "</td>";
+			output += "<td>" + (profile.is_assistant_organizer ? "Yes" : "No")
+					+ "</td>";
 			output += "<td>" + profile.mailing_list_type + "</td>";
 			output += "<td>" + profile.url + "</td>";
 			output += "</tr>";
@@ -38,9 +40,22 @@ public class ReportsController extends Controller {
 
 	private static String formatDate(Date date) {
 		String formattedDate = "";
+		Date parsedDate = null;
 		if (date != null) {
-			SimpleDateFormat dt = new SimpleDateFormat("mm/dd/yyyy");
-			formattedDate = dt.format(date);
+			SimpleDateFormat dt1 = new SimpleDateFormat(
+					"EEE MMM dd hh:mm:ss zzz yyyy");
+			try {
+				parsedDate = dt1.parse(date.toString());
+				Logger.debug("Parsed Date: " + parsedDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			SimpleDateFormat dt2 = new SimpleDateFormat("MM/dd/yyyy");
+			if (parsedDate != null) {
+				formattedDate = dt2.format(parsedDate);
+				Logger.debug("Formatted Date:" + formattedDate);
+			}
 		}
 
 		return formattedDate;
