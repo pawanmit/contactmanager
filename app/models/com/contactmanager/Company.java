@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import play.data.validation.Constraints;
@@ -19,7 +20,8 @@ public class Company extends Model {
 	public String name;
 	
 	@ManyToOne
-	public Company company;
+	@JoinColumn(name="id")
+	public Profile profile;
 
 	public Company(String companyName) {
 		this.name = companyName;

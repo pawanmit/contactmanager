@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import play.data.validation.Constraints;
@@ -24,7 +25,8 @@ public class Profile {
 	@Constraints.Required
 	public String company_id;
 	
-	@OneToOne
+	//@OneToOne
+	//@JoinColumn(name="id")
 	public Rsvp rsvp;
 	
 	@Constraints.Required

@@ -8,24 +8,24 @@ import play.data.validation.Constraints;
 public class Rsvp {
 
 	@Constraints.Required
-	String id;
+	public String id;
 
 	@Constraints.Required
-	int total;
+	public int total;
 
 	@Constraints.Required
-	int rsvp_yes;
+	public int rsvp_yes;
 
 	@Constraints.Required
-	int rsvp_no;
+	public int rsvp_no;
 
 	@Constraints.Required
-	int rsvp_maybe;
+	public int rsvp_maybe;
 
 	@Constraints.Required
-	int meetups_attended;
+	public int meetups_attended;
 
 	@Constraints.Required
-	int no_shows;
+	public int no_shows;
 
 }
