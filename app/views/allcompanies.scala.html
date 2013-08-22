@@ -1,0 +1,32 @@
+@(message : String)
+
+These are the companies from contact manager.
+
+<html>
+
+<body>
+
+<span class="message">Click on a column header to sort the rows</span>
+<span class="message">Click on a company name to get the list of contacts</span>
+<table id="companiesTable">
+<thead>
+<th>Company Name</th>
+<th>Total contacts in this company</th>
+</thead>
+<tbody>
+@Html(message)
+</tbody>
+</table>
+</body>
+<footer>
+	<script type="text/javascript" src="http://www.resumescanner.net/static/scripts/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/assets/javascripts/jquery.tablesorter.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() 
+    		{ 
+        		$("#companiesTable").tablesorter(); 
+    		} 
+		); 
+	</script>
+</footer>
+</html>

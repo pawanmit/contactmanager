@@ -2,10 +2,11 @@ package models.com.contactmanager;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
@@ -19,9 +20,9 @@ public class Company extends Model {
 	@Constraints.Required
 	public String name;
 
-	@ManyToOne
-	@JoinColumn(name = "id")
-	public Profile profile;
+	@OneToMany(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "company_id")
+	public List<Profile> profiles;
 
 	public Company(String companyName) {
 		this.name = companyName;
@@ -32,6 +33,10 @@ public class Company extends Model {
 
 	public static List<Company> findAll() {
 		return find.all();
+	}
+
+	public static Company findById(Long company_id) {
+		return find.byId(company_id);
 	}
 
 	public static void save(Company company) {

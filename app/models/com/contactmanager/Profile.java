@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
 
 @Entity
 public class Profile extends Model {
@@ -52,6 +52,9 @@ public class Profile extends Model {
 	public String url;
 
 	public String rsvp_id;
+	
+	@ManyToOne
+	public Company company;
 
 	public static Model.Finder<Long, Profile> find = new Finder<Long, Profile>(
 			Long.class, Profile.class);
