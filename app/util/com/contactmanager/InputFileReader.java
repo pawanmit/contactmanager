@@ -1,6 +1,7 @@
 package util.com.contactmanager;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,18 +19,17 @@ import exception.com.contactmanager.CreateUserException;
 
 public class InputFileReader {
 
-	public static List<User> getUserList(String filePath)
-			throws ApplicationException {
+	public static List<User> getUserList(File file) throws ApplicationException {
 
 		List<User> userList = new ArrayList<User>();
 		BufferedReader br = null;
 		try {
-			FileReader fr = new FileReader(filePath);
+			FileReader fr = new FileReader(file);
 			br = new BufferedReader(fr);
 		} catch (FileNotFoundException e) {
 			Logger.error(e.getMessage());
 			throw new ApplicationException("Unable to read file from "
-					+ filePath);
+					+ file.getAbsolutePath());
 		}
 		String row = null;
 		int count = 0;
@@ -61,7 +61,7 @@ public class InputFileReader {
 
 	private static User createUserFromCsv(String csvRow)
 			throws CreateUserException {
-		//Logger.info(csvRow);
+		// Logger.info(csvRow);
 
 		String errorMessage = "";
 		User user = new User();

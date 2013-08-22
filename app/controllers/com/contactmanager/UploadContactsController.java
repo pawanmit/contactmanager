@@ -1,5 +1,6 @@
 package controllers.com.contactmanager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +9,11 @@ import models.com.contactmanager.Profile;
 import models.com.contactmanager.Rsvp;
 import play.Logger;
 import play.mvc.Controller;
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
 import util.com.contactmanager.InputFileReader;
 import viewobject.com.contactmanager.User;
-import views.html.index;
 import views.html.upload;
 import exception.com.contactmanager.ApplicationException;
 
@@ -26,11 +28,18 @@ public class UploadContactsController extends Controller {
 
 	public static Result uploadCsv() {
 		String error = "";
-
+		MultipartFormData body = request().body().asMultipartFormData();
+		FilePart usersFile = body.getFile("usersfile");
+		File file = null;
+		if (usersFile != null) {
+			String fileName = usersFile.getFilename();
+			Logger.info("File uploaded: " + fileName);
+			String contentType = usersFile.getContentType();
+			file = usersFile.getFile();
+		}
 		List<User> users = new ArrayList<User>();
 		try {
-			users = InputFileReader
-					.getUserList("/Users/pmittal/Desktop/contacts.csv");
+			users = InputFileReader.getUserList(file);
 		} catch (ApplicationException e) {
 			error = e.getMessage();
 		}
