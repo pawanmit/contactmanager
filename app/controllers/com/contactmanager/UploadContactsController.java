@@ -56,12 +56,13 @@ public class UploadContactsController extends Controller {
 	private static String saveUsers(List<User> users) {
 		String message = "File loaded!";
 		List<Company> existingCompanies = Company.findAll();
+		List<Profile> exisitingContacts = Profile.findAll();
 		for (User user : users) {
 
 			Company company = new Company(user.company);
 			if (!existingCompanies.contains(company)) {
 				existingCompanies.add(company);
-				company.save();
+				// company.save();
 			} else {
 				company = existingCompanies.get(existingCompanies
 						.indexOf(company));
@@ -74,7 +75,7 @@ public class UploadContactsController extends Controller {
 			rsvp.maybe = user.rsvp_maybe;
 			rsvp.meetups_attended = user.meetups_attended;
 			rsvp.no_shows = user.no_shows;
-			rsvp.save();
+			// rsvp.save();
 
 			Profile profile = new Profile();
 			profile.id = user.member_id;
@@ -92,7 +93,12 @@ public class UploadContactsController extends Controller {
 			profile.rsvp = rsvp;
 			profile.company = company;
 			try {
-				profile.save();
+				if (exisitingContacts.contains(profile)) {
+					Profile.update(profile);
+				} else {
+					Profile.save(profile);
+					//exisitingContacts.add(profile);
+				}
 			} catch (Exception e) {
 				Logger.error(e.getMessage());
 				// rsvp.delete();

@@ -22,7 +22,7 @@ public class Company extends Model {
 	@Constraints.Required
 	public String name;
 
-	@OneToMany(mappedBy = "company", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
 	@JoinColumn(name = "company_id")
 	public List<Profile> profiles;
 
