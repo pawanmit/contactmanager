@@ -81,58 +81,59 @@ public class InputFileReader {
 		try {
 			user.joined_date = convertStringToDate(valueArray[5]);
 		} catch (CreateUserException cue) {
-			errorMessage = "Error writing join date. Please check the csv entry for user id "
-					+ valueArray[1];
+			errorMessage += "Error writing join date. Please check the csv entry for user id "
+					+ valueArray[1] + "\n";
 		}
 
 		try {
 			user.last_visited_date = convertStringToDate(valueArray[6]);
 		} catch (CreateUserException e) {
-			errorMessage = "Error writing last visited date. Please check the csv entry for user id "
+			errorMessage += "Error writing last visited date. Please check the csv entry for user id "
 					+ valueArray[1] + "\n";
 		}
 
 		try {
 			user.last_attended_date = convertStringToDate(valueArray[7]);
 		} catch (CreateUserException e) {
-			errorMessage = "Error writing last_attended_date. Please check the csv entry for user id "
+			errorMessage += "Error writing last_attended_date. Please check the csv entry for user id "
 					+ valueArray[1] + "\n";
 		}
 
 		try {
 			user.rsvp_total = convertStringToInt(valueArray[8]);
 		} catch (CreateUserException cue) {
-			errorMessage = "Error writing rsvp total. Please check the csv entry for user id "
+			errorMessage += "Error writing rsvp total. Please check the csv entry for user id "
 					+ valueArray[1] + "\n";
 		}
 		try {
 			user.rsvp_yes = convertStringToInt(valueArray[9]);
 		} catch (CreateUserException cue) {
-			errorMessage = "Error writing rsvp yes. Please check the csv entry for user id "
+			errorMessage += "Error writing rsvp yes. Please check the csv entry for user id "
 					+ valueArray[1] + "\n";
 		}
 		try {
 			user.rsvp_maybe = convertStringToInt(valueArray[10]);
 		} catch (CreateUserException cue) {
-			errorMessage = "Error writing rsvp maybe. Please check the csv entry for user id "
+			errorMessage += "Error writing rsvp maybe. Please check the csv entry for user id "
 					+ valueArray[1] + "\n";
 		}
 		try {
 			user.rsvp_no = convertStringToInt(valueArray[11]);
 		} catch (CreateUserException cue) {
-
+			errorMessage += "Error writing rsvp no. Please check the csv entry for user id "
+					+ valueArray[1] + "\n";
 		}
 
 		try {
 			user.meetups_attended = convertStringToInt(valueArray[12]);
 		} catch (CreateUserException e) {
-			errorMessage = "Error writing meetups attended. Please check the csv entry for user id "
+			errorMessage += "Error writing meetups attended. Please check the csv entry for user id "
 					+ valueArray[1] + "\n";
 		}
 		try {
 			user.no_shows = convertStringToInt(valueArray[13]);
 		} catch (CreateUserException e) {
-			errorMessage = "Error writing no shows. Please check the csv entry for user id "
+			errorMessage += "Error writing no shows. Please check the csv entry for user id "
 					+ valueArray[1] + "\n";
 		}
 
@@ -144,6 +145,7 @@ public class InputFileReader {
 		user.url = valueArray[18];
 
 		if (errorMessage.length() > 0) {
+			Logger.error("Error creating user: " + errorMessage);
 			throw new CreateUserException(errorMessage);
 		}
 		return user;
@@ -154,7 +156,7 @@ public class InputFileReader {
 		Date date = null;
 		try {
 			if (dateString != null && dateString.length() > 0) {
-				date = new SimpleDateFormat("mm/dd/yyyy", Locale.ENGLISH)
+				date = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH)
 						.parse(dateString);
 			}
 		} catch (ParseException e) {
