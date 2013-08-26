@@ -62,7 +62,7 @@ public class UploadContactsController extends Controller {
 			Company company = new Company(user.company);
 			if (!existingCompanies.contains(company)) {
 				existingCompanies.add(company);
-				// company.save();
+				 	company.save();
 			} else {
 				company = existingCompanies.get(existingCompanies
 						.indexOf(company));

@@ -3,6 +3,7 @@ package models.com.contactmanager;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -50,7 +51,7 @@ public class Profile extends Model {
 	@JoinColumn(name = "rsvp_id")
 	public Rsvp rsvp;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "company_id")
 	public Company company;
 
@@ -62,13 +63,13 @@ public class Profile extends Model {
 	}
 
 	public static void save(Profile profile) {
-		profile.company.save();
+		//profile.company.save();
 		profile.rsvp.save();
 		profile.save();
 	}
 
 	public static void update(Profile profile) {
-		profile.getCompany().update();
+		//profile.getCompany().update();
 		profile.getRsvp().update();
 		profile.update();
 	}
