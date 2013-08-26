@@ -49,7 +49,7 @@ public class ReportsController extends Controller {
 		List<Company> companies = Company.findAll();
 		for (Company company : companies) {
 			output += "<tr>";
-			output += "<td><a href=/companycontacts/" + company.id + ">"
+			output += "<td><a href=/companycontacts/" + company.company_id + ">"
 					+ company.name + "</a></td>";
 			output += "<td>" + company.profiles.size() + "</td>";
 			output += "</tr>";
@@ -88,7 +88,7 @@ public class ReportsController extends Controller {
 		output += "<td>" + profile.name + "</td>";
 		output += "<td>" + profile.login_name + "</td>";
 		output += "<td>" + profile.title + "</td>";
-		output += "<td><a href=/companycontacts/" + profile.company.id + ">"
+		output += "<td><a href=/companycontacts/" + profile.company.company_id + ">"
 				+ profile.company.name + "</a></td>";
 		output += "<td>" + formatDate(profile.joined_date) + "</td>";
 		output += "<td>" + formatDate(profile.last_attended_date) + "</td>";

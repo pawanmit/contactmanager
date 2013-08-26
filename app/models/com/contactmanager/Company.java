@@ -3,6 +3,7 @@ package models.com.contactmanager;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,12 +16,13 @@ import play.db.ebean.Model;
 public class Company extends Model {
 
 	@Id
-	public String id;
+	@Column(name = "id", nullable = false)
+	public String company_id;
 
 	@Constraints.Required
 	public String name;
 
-	@OneToMany(cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "company", cascade = { CascadeType.ALL })
 	@JoinColumn(name = "company_id")
 	public List<Profile> profiles;
 

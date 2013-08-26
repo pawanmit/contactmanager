@@ -1,8 +1,9 @@
 package models.com.contactmanager;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import play.data.validation.Constraints;
@@ -12,7 +13,8 @@ import play.db.ebean.Model;
 public class Rsvp extends Model {
 
 	@Id
-	public String id;
+	@Column(name = "id", nullable = false)
+	public String rsvp_id;
 
 	@Constraints.Required
 	public int total;
@@ -32,8 +34,7 @@ public class Rsvp extends Model {
 	@Constraints.Required
 	public int no_shows;
 
-	@OneToOne
-	@JoinColumn(name = "rsvp_id")
+	@OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "rsvp", targetEntity = Profile.class)
 	public Profile profile;
 
 	public static void save(Rsvp rsvp) {

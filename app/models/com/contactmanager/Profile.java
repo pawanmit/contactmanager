@@ -3,8 +3,10 @@ package models.com.contactmanager;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -23,12 +25,9 @@ public class Profile extends Model {
 
 	public String title;
 
-	@Constraints.Required
-	public String company_id;
-
-	// @OneToOne
-	// @JoinColumn(name="id")
-	// public Rsvp rsvp;
+	@OneToOne(optional=false)
+	@JoinColumn(name="rsvp_id")
+	 public Rsvp rsvp;
 
 	@Constraints.Required
 	public Date joined_date;
@@ -51,15 +50,11 @@ public class Profile extends Model {
 	public String mailing_list_type;
 
 	public String url;
-
-	public String rsvp_id;
 	
-	@ManyToOne
+	@ManyToOne(optional=false)
+	@JoinColumn(name="company_id")
 	public Company company;
 	
-	@OneToOne
-	public Rsvp rsvp;
-
 	public static Model.Finder<Long, Profile> find = new Finder<Long, Profile>(
 			Long.class, Profile.class);
 

@@ -1,8 +1,10 @@
+@(message : String)
 <html>
 <head>
 </head>
 
 <body>
+<span>@Html(message)</span>
 <form id="uploadform" method="post" action="/uploadcsv" enctype="multipart/form-data">
 	<input type="file" name="usersfile" />
 	<input type="submit" id="upload_button" value="Upload" />

@@ -22,7 +22,7 @@ public class UploadContactsController extends Controller {
 	public static Result index() {
 
 		// return ok(index.render("Output:" + output));
-		return ok(upload.render());
+		return ok(upload.render(""));
 
 	}
 
@@ -45,15 +45,16 @@ public class UploadContactsController extends Controller {
 		}
 
 		if (error.length() > 0) {
-
+			return ok(upload.render(error));
 		} else {
-			saveUsers(users);
+			error = saveUsers(users);
 		}
 
-		return ok(upload.render());
+		return ok(upload.render(error));
 	}
 
-	private static void saveUsers(List<User> users) {
+	private static String saveUsers(List<User> users) {
+		String message = "File loaded!";
 		List<Company> existingCompanies = Company.findAll();
 		for (User user : users) {
 
@@ -80,8 +81,6 @@ public class UploadContactsController extends Controller {
 			profile.login_name = user.user_id;
 			profile.title = user.title;
 			profile.name = user.name;
-			profile.company_id = company.id;
-			profile.rsvp_id = rsvp.id;
 			profile.joined_date = user.joined_date;
 			profile.last_attended_date = user.last_attended_date;
 			profile.last_visited_date = user.last_visited_date;
@@ -90,13 +89,17 @@ public class UploadContactsController extends Controller {
 			profile.is_photo = user.is_photo;
 			profile.url = user.url;
 			profile.mailing_list_type = user.mailing_list_type;
+			profile.rsvp = rsvp;
+			profile.company = company;
 			try {
 				profile.save();
 			} catch (Exception e) {
 				Logger.error(e.getMessage());
-				rsvp.delete();
-				company.delete();
+				// rsvp.delete();
+				// company.delete();
+				message = "Error loading file. Please check logs";
 			}
 		}
+		return message;
 	}
-}
+} // class
