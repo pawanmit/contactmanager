@@ -62,6 +62,10 @@ public class Profile extends Model {
 		return find.all();
 	}
 
+	public static Profile findById(Long profile_id) {
+		return find.byId(profile_id);
+	}
+	
 	public static void save(Profile profile) {
 		//profile.company.save();
 		profile.rsvp.save();

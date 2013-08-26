@@ -1,21 +1,18 @@
-@(message : String)
+@(profile : models.com.contactmanager.Profile)
 
 <html>
 
 <body>
 
 <table id="rsvpTable">
-<thead>
-<th class="col_header">Name</th>
-<th class="col_header">Total RSVPs</th>
-<th class="col_header">RSVPs Yes</th>
-<th class="col_header">RSVPs No</th>
-<th class="col_header">RSVPs Maybe</th>
-<th class="col_header">No Shows</th>
-<th class="col_header">Meetups Attended</th>
-</thead>
 <tbody>
-@message
+<tr><td class="col_header">Name</td><td>@profile.name</td>
+<tr><td class="col_header">Total RSVPs</td><td>@profile.rsvp.total</td>
+<tr><td class="col_header">RSVPs Yes</td><td>@profile.rsvp.yes</td>
+<tr><td class="col_header">RSVPs No</td><td>@profile.rsvp.no</td>
+<tr><td class="col_header">RSVPs Maybe</td><td>@profile.rsvp.maybe</td>
+<tr><td class="col_header">No Shows</td><td>@profile.rsvp.no_shows</td>
+<tr><td class="col_header">Meetups Attended</td><td>@profile.rsvp.meetups_attended</td>
 </tbody>
 </table>
 

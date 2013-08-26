@@ -39,9 +39,11 @@ public class ReportsController extends Controller {
 		return ok(contacts.render(markup));
 	}
 
-	public static Result fetchRsvpByProfile(String id) {
-		String markup = "hello";
-		return ok(contactrsvp.render(markup));
+	public static Result fetchRsvpByProfile(String profile_id) {
+		long id = Long.parseLong(profile_id);
+		Profile profile = Profile.findById(id);
+
+		return ok(contactrsvp.render(profile));
 	}
 
 	public static Result fetchAllCompanies() {
@@ -49,8 +51,8 @@ public class ReportsController extends Controller {
 		List<Company> companies = Company.findAll();
 		for (Company company : companies) {
 			output += "<tr>";
-			output += "<td><a href=/companycontacts/" + company.company_id + ">"
-					+ company.name + "</a></td>";
+			output += "<td><a href=/company/contacts/" + company.company_id
+					+ ">" + company.name + "</a></td>";
 			output += "<td>" + company.profiles.size() + "</td>";
 			output += "</tr>";
 			// Logger.info(company.name + ":" + profiles.size());
@@ -85,11 +87,12 @@ public class ReportsController extends Controller {
 	private static String generateProfileMarkup(Profile profile) {
 		String output = "<tr>";
 		output += "<td>" + profile.id + "</td>";
-		output += "<td>" + profile.name + "</td>";
+		output += "<td><a href=/contacts/rsvp/" + profile.id + ">"
+				+ profile.name + "</a></td>";
 		output += "<td>" + profile.login_name + "</td>";
 		output += "<td>" + profile.title + "</td>";
-		output += "<td><a href=/companycontacts/" + profile.company.company_id + ">"
-				+ profile.company.name + "</a></td>";
+		output += "<td><a href=/company/contacts/" + profile.company.company_id
+				+ ">" + profile.company.name + "</a></td>";
 		output += "<td>" + formatDate(profile.joined_date) + "</td>";
 		output += "<td>" + formatDate(profile.last_attended_date) + "</td>";
 		output += "<td>" + formatDate(profile.last_visited_date) + "</td>";
