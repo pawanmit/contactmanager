@@ -33,7 +33,7 @@ public class Rsvp extends Model {
 	public int no_shows;
 
 	@OneToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "rsvp_id")
 	public Profile profile;
 
 	public static void save(Rsvp rsvp) {

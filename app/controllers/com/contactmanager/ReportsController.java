@@ -12,6 +12,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.contacts;
 import views.html.allcompanies;
+import views.html.contactrsvp;
 
 public class ReportsController extends Controller {
 
@@ -36,6 +37,11 @@ public class ReportsController extends Controller {
 			markup += generateProfileMarkup(profile);
 		}
 		return ok(contacts.render(markup));
+	}
+
+	public static Result fetchRsvpByProfile(String id) {
+		String markup = "hello";
+		return ok(contactrsvp.render(markup));
 	}
 
 	public static Result fetchAllCompanies() {
@@ -82,7 +88,8 @@ public class ReportsController extends Controller {
 		output += "<td>" + profile.name + "</td>";
 		output += "<td>" + profile.login_name + "</td>";
 		output += "<td>" + profile.title + "</td>";
-		output += "<td><a href=/companycontacts/" + profile.company.id + ">" + profile.company.name + "</a></td>";
+		output += "<td><a href=/companycontacts/" + profile.company.id + ">"
+				+ profile.company.name + "</a></td>";
 		output += "<td>" + formatDate(profile.joined_date) + "</td>";
 		output += "<td>" + formatDate(profile.last_attended_date) + "</td>";
 		output += "<td>" + formatDate(profile.last_visited_date) + "</td>";
