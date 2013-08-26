@@ -68,7 +68,17 @@ public class UploadContactsController extends Controller {
 						.indexOf(company));
 			}
 
+			Profile profile = new Profile(user.member_id);
 			Rsvp rsvp = new Rsvp();
+			if (!exisitingContacts.contains(profile)) {
+				//exisitingContacts.add(profile);
+				// company.save();
+			} else {
+				profile = exisitingContacts.get(exisitingContacts
+						.indexOf(profile));
+				rsvp.rsvp_id = profile.rsvp.rsvp_id;
+			}
+
 			rsvp.total = user.rsvp_total;
 			rsvp.yes = user.rsvp_yes;
 			rsvp.no = user.rsvp_no;
@@ -77,8 +87,7 @@ public class UploadContactsController extends Controller {
 			rsvp.no_shows = user.no_shows;
 			// rsvp.save();
 
-			Profile profile = new Profile();
-			profile.id = user.member_id;
+			// profile.id = user.member_id;
 			profile.login_name = user.user_id;
 			profile.title = user.title;
 			profile.name = user.name;
@@ -97,7 +106,7 @@ public class UploadContactsController extends Controller {
 					Profile.update(profile);
 				} else {
 					Profile.save(profile);
-					//exisitingContacts.add(profile);
+					exisitingContacts.add(profile);
 				}
 			} catch (Exception e) {
 				Logger.error(e.getMessage());

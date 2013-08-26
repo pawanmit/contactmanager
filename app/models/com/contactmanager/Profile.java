@@ -117,9 +117,9 @@ public class Profile extends Model {
 		this.company = company;
 	}
 
-	// public Profile(String id) {
-	// super();
-	// this.id = id;
-	// }
+	public Profile(String id) {
+		super();
+		this.id = id;
+	}
 
 }
